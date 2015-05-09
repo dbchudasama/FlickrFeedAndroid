@@ -21,7 +21,7 @@ public class GetFlickrJsonData extends GetRawData {
     //Adding Class fields
     //Adding LOG_TAG
     private String LOG_TAG = GetFlickrJsonData.class.getSimpleName();
-    //Storing Photos in a list (of type Phot0 - created in the class Photo)
+    //Storing Photos in a list (of type Photo - created in the class Photo)
     private List<Photo> mPhotos;
     //Recording the Destination URI from where the Photos were downloaded
     //URI stands for Universe Resource Identifier
@@ -70,6 +70,13 @@ public class GetFlickrJsonData extends GetRawData {
         return mDestinationUri != null;
 
     }
+
+    //Getter to get the list of Photos
+    public List<Photo> getMPhotos() {
+        return mPhotos;
+    }
+
+
     //Method to process downloaded raw data
     public void processResult(){
         //If the data was not downloaded successfully
@@ -137,8 +144,10 @@ public class GetFlickrJsonData extends GetRawData {
         }
 
         protected String doInBackground(String... params) {
+            //To avoid crashing, here setting up an object with one element (the URI) as the code expects a list of parameters and not a single URL
+            String[] par = { mDestinationUri.toString() };
             //This will be going into GetRawData class and carrying out the method to download the RAW Data in the background of the app before parsing to JSON
-            return super.doInBackground(params);
+            return super.doInBackground(par);
         }
     }
 }

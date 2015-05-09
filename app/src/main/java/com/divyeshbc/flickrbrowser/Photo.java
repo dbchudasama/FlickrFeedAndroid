@@ -49,10 +49,11 @@ public class Photo {
     public String getmImage() {
         return mImage;
     }
-    //--
+    // --
 
 
     @Override
+    //Returning Photo with it's properties
     public String toString() {
         return "Photo{" +
                 "mTitle='" + mTitle + '\'' +

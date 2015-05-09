@@ -2,23 +2,34 @@ package com.divyeshbc.flickrbrowser;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends ActionBarActivity {
+
+    private static final String LOG_TAG = "MainActivity";
+    private List<Photo> mPhotoList = new ArrayList<Photo>();
+    private RecyclerView mRecyclerView;
+    private FlickrRecyclerViewAdapter mflickrRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Initialise the recyclerView
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        //Setting up the Layout for the Recycler View
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Calling the GetRawData class
-        //GetRawData theRawData = new GetRawData("https://api.flickr.com/services/feeds/photos_public.gne?tags=android,lollipop&format=json&nojsoncallback=1");
-
-        GetFlickrJsonData jsonData = new GetFlickrJsonData("android,lollipop", true);
-        //Invoking the execution method for GetRawData which will fetch the data from the URL
-        jsonData.execute();
+        //Setting up the process criteria "android or lollipop" photos
+        ProcessPhotos processPhotos = new ProcessPhotos("dragonball z",true);
+        processPhotos.execute();
 
     }
 
@@ -42,5 +53,30 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class ProcessPhotos extends GetFlickrJsonData {
+
+        //Constructor
+        public ProcessPhotos(String searchCriteria, boolean matchAll) {
+            super(searchCriteria, matchAll);
+        }
+
+        public void execute() {
+            super.execute();
+            ProcessData processData = new ProcessData();
+            processData.execute();
+        }
+
+        public class ProcessData extends DownloadJSONData {
+
+            protected void onPostExecute(String webData) {
+                super.onPostExecute(webData);
+                //Initialising the adapter to update from Main Activity
+                mflickrRecyclerViewAdapter = new FlickrRecyclerViewAdapter(MainActivity.this, getMPhotos());
+                //Adding the adapter to the view
+                mRecyclerView.setAdapter(mflickrRecyclerViewAdapter);
+            }
+        }
     }
 }
