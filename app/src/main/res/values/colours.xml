@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="flickrPrimaryBackgroundColour">@color/md_blue_500</color> <!--Main Toolbar colour-->
+    <color name="flickrSecondaryBackgroundColour">@color/md_blue_700</color> <!--Status bar above toolbar-->
+    <color name="flickrColorBackgroundAccent">@color/md_pink_500</color> <!--Bright colour that is underlining links-->
+    <color name="flickrBackgroundColour">@color/md_white_1000</color> <!--General forms and general background colour-->
+    <color name="flickrPrimaryTextColour">@color/md_white_1000</color> <!--Major colour for main Text (Header, Titles etc)-->
+    <color name="flickrSecondaryTextColour">@color/md_white_1000</color> <!--Secondary colour for the Text (Options, Settings etc)-->
+
+</resources>

@@ -1,6 +1,5 @@
 package com.divyeshbc.flickrbrowser;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String LOG_TAG = "MainActivity";
     private List<Photo> mPhotoList = new ArrayList<Photo>();
@@ -22,13 +21,17 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Calling Activate Toolbar method
+        activateToolBar();
+
         //Initialise the recyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         //Setting up the Layout for the Recycler View
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Setting up the process criteria "android or lollipop" photos
-        ProcessPhotos processPhotos = new ProcessPhotos("dragonball z",true);
+        ProcessPhotos processPhotos = new ProcessPhotos("iPhone",true);
         processPhotos.execute();
 
     }
