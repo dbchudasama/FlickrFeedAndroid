@@ -72,10 +72,9 @@ public class GetFlickrJsonData extends GetRawData {
     }
 
     //Getter to get the list of Photos
-    public List<Photo> getMPhotos() {
+    public List<Photo> getPhotos() {
         return mPhotos;
     }
-
 
     //Method to process downloaded raw data
     public void processResult(){
@@ -110,12 +109,15 @@ public class GetFlickrJsonData extends GetRawData {
                 String title  = jsonPhoto.getString(FLICKR_TITLE);
                 String author = jsonPhoto.getString(FLICKR_AUTHOR);
                 String authorId = jsonPhoto.getString(FLICKR_AUTHOR_ID);
-                String link = jsonPhoto.getString(FLICKR_LINK);
+            //  String link = jsonPhoto.getString(FLICKR_LINK);
                 String tags = jsonPhoto.getString(FLICKR_TAGS);
 
                 //To get Photo URL, need to access a new JSON Object
                 JSONObject jsonMedia = jsonPhoto.getJSONObject(FLICKR_MEDIA);
                 String photoUrl = jsonMedia.getString(FLICKR_PHOTO_URL);
+                //Changing the link variable to this as FLICKR adds additions after the URL causing an error in loading the image
+                //This replaces the additional _m at the end for _b which is the correct link URL
+                String link = photoUrl.replaceFirst("_m.","_b.");
 
                 //Creating new Photo Object and passing in details for the image
                 Photo photoObject = new Photo(title, author, authorId, link, tags, photoUrl);

@@ -1,12 +1,22 @@
 package com.divyeshbc.flickrbrowser;
 
+import java.io.Serializable;
+
 /**
  * Created by DivyeshBC on 04/05/15.
  */
 
 //THIS CLASS WILL STORE THE DATA RETURNED FROM THE JSON DATA
 
-public class Photo {
+//Serializable allows the photo object to be passed to various different platforms in a language that java understands
+//Here will pass the Photo Object in to the view to allow recyclerView to detect which Image has been selected to allow it's
+//independent properties to display
+public class Photo implements Serializable {
+
+    //Adding serialization version - 1L indicates the version number of this Photo Object. This can be incremented if additional
+    //details/properties of the photo are added
+    private static final long serialVersionUID = 1L;
+
     //Defining individual photo properties as private variables
     private String mTitle;
     private String mAuthor;
@@ -25,32 +35,35 @@ public class Photo {
         this.mImage = mImage;
     }
 
-    //Getter --
-    public String getmTitle() {
+    //Getters --
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getTitle() {
         return mTitle;
     }
 
-    public String getmAuthor() {
+    public String getAuthor() {
         return mAuthor;
     }
 
-    public String getmAuhtorId() {
+    public String getAuhtorId() {
         return mAuhtorId;
     }
 
-    public String getmLink() {
+    public String getLink() {
         return mLink;
     }
 
-    public String getmTags() {
+    public String getTags() {
         return mTags;
     }
 
-    public String getmImage() {
+    public String getImage() {
         return mImage;
     }
-    // --
-
 
     @Override
     //Returning Photo with it's properties

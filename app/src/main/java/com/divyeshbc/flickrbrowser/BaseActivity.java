@@ -12,6 +12,11 @@ public class BaseActivity extends ActionBarActivity {
 
     //Variable to store the Toolbar
     private Toolbar mToolbar;
+    //String variable for Search Query
+    public static final String FLICKR_QUERY = "FLICKR_QUERY";
+    //String returning all Photo Object properties
+    public static final String PHOTO_TRANSFER = "PHOTO_TRANSFER";
+
 
     //Method to create Custom ToolBar
     protected Toolbar activateToolBar() {

@@ -50,11 +50,11 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrImageV
         //Fetching the index position of the photo in the view being drawn on the screen
         Photo photoItem = mPhotoList.get(position);
         //Drawing the thumbnail, using the Picasso Library
-        Picasso.with(mContext).load(photoItem.getmImage()) //Download the image
+        Picasso.with(mContext).load(photoItem.getImage()) //Download the image
                 .error(R.drawable.placeholder) //If an error occurs show the placeholder
                 .placeholder(R.drawable.placeholder) //Whilst is it downloading show the placeholder
                 .into(flickrImageViewHolder.thumbnail); //Putting the image into the thumbnail in the flickrImageViewHolder
-        flickrImageViewHolder.title.setText(photoItem.getmTitle()); //Getting the title for the image and setting it in the TextView
+        flickrImageViewHolder.title.setText(photoItem.getTitle()); //Getting the title for the image and setting it in the TextView
 
     }
 
@@ -65,4 +65,17 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrImageV
         return (null != mPhotoList ? mPhotoList.size() : 0);
     }
 
+    //Method to load the new searched data
+    public void loadNewData(List<Photo> newPhotos) {
+        //Setting the current Photo list to the new Photo List
+        mPhotoList = newPhotos;
+        //This function tells the adapter to reprocess the entire file and redraw it on the Screen. Data behind view has changed so resync
+        notifyDataSetChanged();
+    }
+
+    //Getting the photo position
+    public Photo getPhoto(int position) {
+        //If mPhotoList is null then return null, otherwise return the position of the image in the list
+        return (null != mPhotoList ? mPhotoList.get(position) : null);
+    }
 }
